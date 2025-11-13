@@ -14,6 +14,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.p1_artspace_victorperez_sergiorodriguez_pabloalonso.ui.theme.P1_ArtSpace_VictorPerez_SergioRodriguez_PabloAlonsoTheme
 
 class MainActivity : ComponentActivity() {
+    val imageList = ImageList(listOf(
+        Art("Doge", "The doge creator", 2010, R.drawable.doge_meme_png_photos_1504254126)
+    ))
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
