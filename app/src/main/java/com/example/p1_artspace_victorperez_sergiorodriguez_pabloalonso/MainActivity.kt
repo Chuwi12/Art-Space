@@ -32,6 +32,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
                         name = "Android",
+                        imageList = imageList,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -41,7 +42,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Greeting(name: String, imageList: ImageList, modifier: Modifier = Modifier) {
     val doge = painterResource(R.drawable.doge_meme_png_photos_1504254126)
     Column(){
 
@@ -59,6 +60,16 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         }
     }
 
+
+}
+
+@Composable
+fun ArtDisplay(art: Art, artNumber: Int, maxArt: Int, modifier: Modifier = Modifier) {
+    
+}
+
+@Composable
+fun NextPreviousButtons(onValueChange: (Int) -> Unit, modifier: Modifier = Modifier) {
 
 }
 
