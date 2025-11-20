@@ -93,22 +93,20 @@ fun ArtDisplay(art: Art, artNumber: Int, maxArt: Int, modifier: Modifier = Modif
     ) {
         Text(
             art.title,
-            fontSize = 24.sp
+            fontSize = 24.sp,
+            modifier = Modifier.padding(bottom = 48.dp, top = 24.dp)
         )
-        Column(
-            modifier = Modifier
-                .weight(1f),
-
-            verticalArrangement = Arrangement.Center
-        ) {
-            Image(
-                painter = painterResource(art.image),
-                contentDescription = null,
-                modifier = modifier.fillMaxSize()
-            )
+        Column(modifier = Modifier.weight(1f).padding(bottom = 48.dp), verticalArrangement = Arrangement.Center) {
+            Surface(shadowElevation = 8.dp, tonalElevation = 8.dp) {
+                Image(
+                    painter = painterResource(art.image),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
         }
         Text(
-            "${art.artist}(${art.year})",
+            "${art.artist} (${art.year})",
             fontSize = 24.sp
         )
         Text(
