@@ -33,7 +33,9 @@ class MainActivity : ComponentActivity() {
     val imageList = ImageList(
         listOf(
             Art("Doge", "The doge creator", 2010, R.drawable.doge_meme_png_photos_1504254126),
-            Art("Doge2", "The *second* doge creator", 2010, R.drawable.doge_meme_png_photos_1504254126),
+            Art("Tau5", "Pablo", 2023,R.drawable.tau),
+            Art("Chuwi12", "Sergio", 2024,R.drawable.sehio),
+            Art("DjVicthor-sh","Victhor", 2018,R.drawable.usr001)
         )
     )
 
@@ -96,6 +98,7 @@ fun NextPreviousButtons(value: Int, onValueChange: (Int) -> Unit, modifier: Modi
 
 }
 
+
 @Composable
 fun MainComponent(imageList: ImageList, modifier: Modifier = Modifier) {
     var selectedArtIndex by remember { mutableStateOf(0) };
@@ -121,3 +124,6 @@ fun MainComponent(imageList: ImageList, modifier: Modifier = Modifier) {
         )
     }
 }
+
+
+
