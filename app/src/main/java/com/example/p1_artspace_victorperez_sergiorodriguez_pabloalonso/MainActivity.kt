@@ -1,10 +1,13 @@
 package com.example.p1_artspace_victorperez_sergiorodriguez_pabloalonso
 
 import android.os.Bundle
+import android.provider.CalendarContract
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,9 +17,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -88,7 +95,12 @@ fun ArtDisplay(art: Art, artNumber: Int, maxArt: Int, modifier: Modifier = Modif
             art.title,
             fontSize = 24.sp
         )
-        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
+        Column(
+            modifier = Modifier
+                .weight(1f),
+
+            verticalArrangement = Arrangement.Center
+        ) {
             Image(
                 painter = painterResource(art.image),
                 contentDescription = null,
@@ -115,23 +127,36 @@ fun NextPreviousButtons(value: Int, onValueChange: (Int) -> Unit, modifier: Modi
         )
     ) {
         Column(modifier = modifier.padding(end = 4.dp)) {
-            Button(onClick = {
-                onValueChange(value - 1)
+            Button(
+                onClick = {
+                    onValueChange(value - 1)
+                },
+                colors = ButtonDefaults.buttonColors(
+                    Color(244, 67, 54, 255)
+                )
 
-            }) {
+
+            ) {
                 Text(
                     "Previous",
-                    fontSize = 24.sp
+                    fontSize = 24.sp,
+                    color = Color(255, 255, 255)
                 )
             }
         }
         Column() {
-            Button(onClick = {
-                onValueChange(value + 1)
-            }) {
+            Button(
+                onClick = {
+                    onValueChange(value + 1)
+                },
+                colors = ButtonDefaults.buttonColors(
+                    Color(76, 175, 80, 255)
+                )
+            ) {
                 Text(
                     "Next",
-                    fontSize = 24.sp
+                    fontSize = 24.sp,
+                    color = Color(255, 255, 255)
                 )
             }
         }
