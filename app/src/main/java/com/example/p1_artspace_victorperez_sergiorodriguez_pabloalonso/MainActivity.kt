@@ -85,12 +85,16 @@ fun ArtDisplay(art: Art, artNumber: Int, maxArt: Int, modifier: Modifier = Modif
 fun NextPreviousButtons(value: Int, onValueChange: (Int) -> Unit, modifier: Modifier = Modifier) {
     Row() {
         Column(modifier = modifier.padding(end = 4.dp)) {
-            Button(onClick = {}) {
+            Button(onClick = {
+                onValueChange(value - 1)
+            }) {
                 Text("Previous")
             }
         }
         Column() {
-            Button(onClick = {}) {
+            Button(onClick = {
+                onValueChange(value + 1)
+            }) {
                 Text("Next")
             }
         }
