@@ -134,7 +134,11 @@ fun MainComponent(imageList: ImageList, modifier: Modifier = Modifier) {
         NextPreviousButtons(
             value = selectedArtIndex,
             onValueChange = {
-                if (it >= 0 && it < imageList.count()) {
+                if (it == -1) {
+                    selectedArtIndex = imageList.count() - 1
+                } else if (it  == imageList.count()) {
+                    selectedArtIndex = 0
+                } else if (it >= 0 && it < imageList.count()) {
                     selectedArtIndex = it;
                 }
             }
