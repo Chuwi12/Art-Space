@@ -5,16 +5,23 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -25,7 +32,8 @@ import com.example.p1_artspace_victorperez_sergiorodriguez_pabloalonso.ui.theme.
 class MainActivity : ComponentActivity() {
     val imageList = ImageList(
         listOf(
-            Art("Doge", "The doge creator", 2010, R.drawable.doge_meme_png_photos_1504254126)
+            Art("Doge", "The doge creator", 2010, R.drawable.doge_meme_png_photos_1504254126),
+            Art("Doge2", "The *second* doge creator", 2010, R.drawable.doge_meme_png_photos_1504254126),
         )
     )
 
@@ -34,9 +42,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             P1_ArtSpace_VictorPerez_SergioRodriguez_PabloAlonsoTheme {
-
-                GreetingPreview()
-
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    MainComponent(imageList = imageList, modifier = Modifier.safeDrawingPadding())
+                }
             }
         }
     }
@@ -45,21 +56,18 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ArtDisplay(art: Art, artNumber: Int, maxArt: Int, modifier: Modifier = Modifier) {
-
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Row() {
-            Text(art.title)
+        Text(art.title)
+        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
+            Image(
+                painter = painterResource(art.image),
+                contentDescription = null,
+                modifier = modifier.fillMaxSize()
+            )
         }
-
-        Image(
-            painter = painterResource(art.image),
-            contentDescription = null,
-            modifier = modifier.size(200.dp)
-        )
-
         Column(
             modifier = modifier,
             horizontalAlignment = Alignment.CenterHorizontally
@@ -67,15 +75,12 @@ fun ArtDisplay(art: Art, artNumber: Int, maxArt: Int, modifier: Modifier = Modif
             Text("${art.artist}(${art.year})")
             Text("Imagen ${artNumber}/${maxArt}")
         }
-
-
     }
 }
 
 
 @Composable
-fun NextPreviousButtons(onValueChange: (Int) -> Unit, modifier: Modifier = Modifier) {
-
+fun NextPreviousButtons(value: Int, onValueChange: (Int) -> Unit, modifier: Modifier = Modifier) {
     Row() {
         Column(modifier = modifier.padding(end = 4.dp)) {
             Button(onClick = {}) {
@@ -91,26 +96,28 @@ fun NextPreviousButtons(onValueChange: (Int) -> Unit, modifier: Modifier = Modif
 
 }
 
-@Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    P1_ArtSpace_VictorPerez_SergioRodriguez_PabloAlonsoTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
+fun MainComponent(imageList: ImageList, modifier: Modifier = Modifier) {
+    var selectedArtIndex by remember { mutableStateOf(0) };
+
+    Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally, modifier = modifier) {
+        imageList.getImage(selectedArtIndex)?.let {
             ArtDisplay(
-                Art(
-                    "Doge",
-                    "Torbe",
-                    2010,
-                    R.drawable.doge_meme_png_photos_1504254126
-                ),
-                1,
-                5
+                it,
+                selectedArtIndex + 1,
+               imageList.count(),
+                modifier = Modifier.weight(1f)
             )
-
-
+        } ?: run {
+            Text("Error: Art not found")
         }
+        NextPreviousButtons(
+            value = selectedArtIndex,
+            onValueChange = {
+                if (it >= 0 && it < imageList.count()) {
+                    selectedArtIndex = it;
+                }
+            }
+        )
     }
 }
