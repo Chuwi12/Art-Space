@@ -55,6 +55,24 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Preview
+@Composable
+fun previewApp(modifier: Modifier = Modifier) {
+    val imageList = ImageList(
+        listOf(
+            Art("Doge", "The doge creator", 2010, R.drawable.doge_meme_png_photos_1504254126),
+            Art("Tau5", "Pablo", 2023,R.drawable.tau),
+            Art("Chuwi12", "Sergio", 2024,R.drawable.sehio),
+            Art("DjVicthor-sh","Victhor", 2018,R.drawable.usr001)
+        )
+    )
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        MainComponent(imageList = imageList, modifier = Modifier.safeDrawingPadding())
+    }
+}
 
 @Composable
 fun ArtDisplay(art: Art, artNumber: Int, maxArt: Int, modifier: Modifier = Modifier) {
@@ -70,13 +88,8 @@ fun ArtDisplay(art: Art, artNumber: Int, maxArt: Int, modifier: Modifier = Modif
                 modifier = modifier.fillMaxSize()
             )
         }
-        Column(
-            modifier = modifier,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text("${art.artist}(${art.year})")
-            Text("Imagen ${artNumber}/${maxArt}")
-        }
+        Text("${art.artist}(${art.year})")
+        Text("Imagen ${artNumber}/${maxArt}")
     }
 }
 
@@ -128,6 +141,8 @@ fun MainComponent(imageList: ImageList, modifier: Modifier = Modifier) {
         )
     }
 }
+
+
 
 
 
